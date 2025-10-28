@@ -13,7 +13,7 @@ on:
 
 jobs:
   call-validate-db-schema:
-    uses: ucsb-cs156/workflows/.github/workflows/18-validate-db-schema.yml@dj-enforceSchemaValidations
+    uses: ucsb-cs156/workflows/.github/workflows/18-validate-db-schema.yml@main
     with:
       JAVA_DISTRIBUTION: ${{ vars.JAVA_DISTRIBUTION || 'temurin' }}
     secrets:
