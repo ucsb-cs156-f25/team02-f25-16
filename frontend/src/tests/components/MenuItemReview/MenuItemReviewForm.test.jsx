@@ -90,6 +90,9 @@ describe("MenuItemReviewForm tests", () => {
     fireEvent.change(dateReviewedField, { target: { value: "bad-input" } });
     fireEvent.change(commentsField, { target: { value: "bad-input" } });
     fireEvent.click(submitButton);
+
+    await screen.findByText(/Date Reviewed is required/);
+    expect(screen.getByText(/Date Reviewed is required/)).toBeInTheDocument();
   });
 
   test("Correct Error messsages on missing input", async () => {
