@@ -71,6 +71,22 @@ function UCSBDiningCommonsMenuItemForm({
         </Form.Control.Feedback>
       </Form.Group>
 
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="station">Station</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-station"}
+          id="station"
+          type="text"
+          isInvalid={Boolean(errors.station)}
+          {...register("station", {
+            required: "Station is required.",
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.station?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
       </Button>
