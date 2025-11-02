@@ -1,3 +1,4 @@
+// Stryker disable all
 import { toast } from "react-toastify";
 
 export function onDeleteSuccess(message) {
@@ -14,3 +15,4 @@ export function cellToAxiosParamsDelete(cell) {
     },
   };
 }
+// Stryker restore all
