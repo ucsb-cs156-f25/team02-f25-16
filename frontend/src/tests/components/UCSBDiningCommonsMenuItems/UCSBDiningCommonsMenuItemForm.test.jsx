@@ -58,6 +58,9 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
 
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-name`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-station`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -85,8 +88,10 @@ describe("UCSBDiningCommonsMenuItemForm tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText(/Create/)).toBeInTheDocument();
-    const submitButton = screen.getByText(/Create/);
+    //expect(await screen.findByText(/Create/)).toBeInTheDocument();
+    expect(await screen.findByTestId(`${testId}-submit`)).toBeInTheDocument();
+    //const submitButton = screen.getByText(/Create/);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
     fireEvent.click(submitButton);
 
     await screen.findByText(/DiningCommonsCode is required/);
