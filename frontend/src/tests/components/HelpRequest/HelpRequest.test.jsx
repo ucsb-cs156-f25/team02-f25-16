@@ -47,6 +47,10 @@ describe("HelpRequestForm tests", () => {
     expect(screen.getByTestId(`${testId}-solved`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-requestTime`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-teamId`)).toBeInTheDocument();
+    expect(
+      screen.getByTestId(`${testId}-tableOrBreakoutRoom`),
+    ).toBeInTheDocument();
   });
 
   test("renders correctly when passing in initialContents", async () => {
