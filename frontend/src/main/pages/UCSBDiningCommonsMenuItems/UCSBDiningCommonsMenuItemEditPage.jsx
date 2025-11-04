@@ -5,7 +5,9 @@ import { Navigate } from "react-router";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false }) {
+export default function UCSBDiningCommonsMenuItemEditPage({
+  storybook = false,
+}) {
   let { id } = useParams();
 
   const {
@@ -39,7 +41,9 @@ export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false })
   });
 
   const onSuccess = (UCSBDiningCommonsMenuItem) => {
-    toast(`UCSBDiningCommonsMenuItem Updated - id: ${UCSBDiningCommonsMenuItem.id} diningCommonsCode: ${UCSBDiningCommonsMenuItem.diningCommonsCode}`);
+    toast(
+      `UCSBDiningCommonsMenuItem Updated - id: ${UCSBDiningCommonsMenuItem.id} diningCommonsCode: ${UCSBDiningCommonsMenuItem.diningCommonsCode}`,
+    );
   };
 
   const mutation = useBackendMutation(
