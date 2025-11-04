@@ -18,7 +18,13 @@ vi.mock("react-router", async () => {
 describe("HelpRequestForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Requester Email", "Team ID", "Table or Breakout Room", "Request Time", "Explanation"];
+  const expectedHeaders = [
+    "Requester Email",
+    "Team ID",
+    "Table or Breakout Room",
+    "Request Time",
+    "Explanation",
+  ];
   const testId = "HelpRequestForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -36,13 +42,20 @@ describe("HelpRequestForm tests", () => {
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
+
+
+    expect(screen.getByTestId(`${testId}-solved`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-requestTime`)).toBeInTheDocument();
   });
 
   test("renders correctly when passing in initialContents", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <HelpRequestForm initialContents={helpRequestFixtures.oneHelpRequest} />
+          <HelpRequestForm
+            initialContents={helpRequestFixtures.oneHelpRequest}
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -83,23 +96,32 @@ describe("HelpRequestForm tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByText(/Create/)).toBeInTheDocument();
-    const submitButton = screen.getByText(/Create/);
+  const submitButton = await screen.findByTestId(`${testId}-submit`);
     fireEvent.click(submitButton);
 
     await screen.findByText(/Requester Email is required/);
     expect(screen.getByText(/Team ID is required/)).toBeInTheDocument();
-    expect(screen.getByText(/Table or Breakout Room is required/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Table or Breakout Room is required/),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Request Time is required/)).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required/)).toBeInTheDocument();
 
     const emailInput = screen.getByTestId(`${testId}-requesterEmail`);
-
     fireEvent.change(emailInput, { target: { value: "a".repeat(256) } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
+    });
+
+
+    const explanationInput = screen.getByTestId(`${testId}-explanation`);
+    fireEvent.change(explanationInput, { target: { value: "a".repeat(1001) } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Max length 1000 characters/)).toBeInTheDocument();
     });
   });
 });
