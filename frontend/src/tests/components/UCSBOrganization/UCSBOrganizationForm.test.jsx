@@ -28,7 +28,7 @@ describe("UCSBOrganizationForm tests", () => {
   test("renders correctly when passing in a UCSBOrganization", async () => {
     render(
       <Router>
-        <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization} />
+        <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization[0]} />
       </Router>,
     );
     await screen.findByTestId(/UCSBOrganizationForm-orgCode/);

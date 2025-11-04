@@ -30,7 +30,7 @@ function UCSBOrganizationForm({
                 type="text"
                 {...register("orgCode")}
                 value={initialContents.orgCode}
-                disabled
+                readOnly
               />
             </Form.Group>
           </Col>
