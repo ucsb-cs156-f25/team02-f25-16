@@ -6,7 +6,7 @@ const menuItemReviewFixtures = {
       reviewerEmail: "test@test.com",
       stars: 1,
       dateReviewed: "2022-01-03T00:00:00",
-      comments: "test comment"
+      comments: "test comment",
     },
   ],
   threeMenuItemReviews: [
@@ -16,7 +16,7 @@ const menuItemReviewFixtures = {
       reviewerEmail: "test2@test.com",
       stars: 2,
       dateReviewed: "2022-03-11T00:00:00",
-      comments: "test comment 2"
+      comments: "test comment 2",
     },
     {
       id: 3,
@@ -24,7 +24,7 @@ const menuItemReviewFixtures = {
       reviewerEmail: "test3@test.com",
       stars: 3,
       dateReviewed: "2022-05-19T00:00:00",
-      comments: "test comment 3"
+      comments: "test comment 3",
     },
     {
       id: 4,
@@ -32,7 +32,7 @@ const menuItemReviewFixtures = {
       reviewerEmail: "test4@test.com",
       stars: 4,
       dateReviewed: "2022-07-27T00:00:00",
-      comments: "test comment 4"
+      comments: "test comment 4",
     },
   ],
 };
