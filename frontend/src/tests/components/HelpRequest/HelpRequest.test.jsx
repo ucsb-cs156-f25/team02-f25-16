@@ -43,7 +43,6 @@ describe("HelpRequestForm tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-
     expect(screen.getByTestId(`${testId}-solved`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-requestTime`)).toBeInTheDocument();
@@ -100,7 +99,7 @@ describe("HelpRequestForm tests", () => {
       </QueryClientProvider>,
     );
 
-  const submitButton = await screen.findByTestId(`${testId}-submit`);
+    const submitButton = await screen.findByTestId(`${testId}-submit`);
     fireEvent.click(submitButton);
 
     await screen.findByText(/Requester Email is required/);
@@ -119,13 +118,14 @@ describe("HelpRequestForm tests", () => {
       expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
     });
 
-
     const explanationInput = screen.getByTestId(`${testId}-explanation`);
     fireEvent.change(explanationInput, { target: { value: "a".repeat(1001) } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/Max length 1000 characters/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Max length 1000 characters/),
+      ).toBeInTheDocument();
     });
   });
 });

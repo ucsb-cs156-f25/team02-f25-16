@@ -114,17 +114,35 @@ describe("HelpRequestTable tests", () => {
     });
 
     // Row 0 content checks
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)).toHaveTextContent("alice@ucsb.edu");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-teamId`)).toHaveTextContent("f25-1");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`)).toHaveTextContent("Table 3");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requestTime`)).toHaveTextContent("2025-11-04T10:00:00");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-explanation`)).toHaveTextContent("Dokku deployment not working");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-solved`)).toHaveTextContent("false");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("alice@ucsb.edu");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-teamId`),
+    ).toHaveTextContent("f25-1");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-tableOrBreakoutRoom`),
+    ).toHaveTextContent("Table 3");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requestTime`),
+    ).toHaveTextContent("2025-11-04T10:00:00");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
+    ).toHaveTextContent("Dokku deployment not working");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-solved`),
+    ).toHaveTextContent("false");
 
     // Row 1 spot checks
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`)).toHaveTextContent("bob@ucsb.edu");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "3",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`),
+    ).toHaveTextContent("bob@ucsb.edu");
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -167,10 +185,18 @@ describe("HelpRequestTable tests", () => {
     });
 
     // Content spot checks
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("2");
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)).toHaveTextContent("alice@ucsb.edu");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("3");
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`)).toHaveTextContent("bob@ucsb.edu");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
+    ).toHaveTextContent("alice@ucsb.edu");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "3",
+    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-requesterEmail`),
+    ).toHaveTextContent("bob@ucsb.edu");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
