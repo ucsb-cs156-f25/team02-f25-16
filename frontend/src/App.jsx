@@ -165,7 +165,7 @@ function App() {
           />
           <Route
             exact
-            path="/ucsborganizations/create"
+            path="/ucsborganization/create"
             element={<UCSBOrganizationCreatePage />}
             path="/articles/edit/:id"
             element={<ArticlesEditPage />}
