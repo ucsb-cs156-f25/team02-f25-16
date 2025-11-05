@@ -166,6 +166,58 @@ describe("RecommendationRequestForm tests", () => {
     ).not.toBeInTheDocument();
   });
 
+  test("Accepts ISO with seconds (alt 2)", async () => {
+    const mockSubmitAction = vi.fn();
+
+    render(
+      <Router>
+        <RecommendationRequestForm submitAction={mockSubmitAction} />
+      </Router>,
+    );
+
+    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
+    const explanationField = screen.getByTestId(`${testId}-explanation`);
+    const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
+    const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
+
+    fireEvent.change(requesterEmailField, { target: { value: "alice@ucsb.edu" } });
+    fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
+    fireEvent.change(explanationField, { target: { value: "Grad apps" } });
+    fireEvent.change(dateRequestedField, { target: { value: "2025-01-01T09:00:00" } });
+    fireEvent.change(dateNeededField, { target: { value: "2025-02-01T17:00:00" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
+  });
+
+  test("Accepts ISO with fractional seconds (alt 1)", async () => {
+    const mockSubmitAction = vi.fn();
+
+    render(
+      <Router>
+        <RecommendationRequestForm submitAction={mockSubmitAction} />
+      </Router>,
+    );
+
+    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
+    const explanationField = screen.getByTestId(`${testId}-explanation`);
+    const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
+    const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
+
+    fireEvent.change(requesterEmailField, { target: { value: "alice@ucsb.edu" } });
+    fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
+    fireEvent.change(explanationField, { target: { value: "Grad apps" } });
+    fireEvent.change(dateRequestedField, { target: { value: "2025-01-01T09:00:00.123" } });
+    fireEvent.change(dateNeededField, { target: { value: "2025-02-01T17:00:00.5" } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
+  });
+
   test("that navigate(-1) is called when Cancel is clicked", async () => {
     render(
       <Router>
