@@ -1,4 +1,4 @@
-const ucsbHelpRequestFixtures = {
+const helpRequestFixtures = {
   oneHelpRequest: {
     requesterEmail: "omaraboutaleb@ucsb.edu",
     teamId: "f25-16",
@@ -35,4 +35,4 @@ const ucsbHelpRequestFixtures = {
   ],
 };
 
-export { ucsbHelpRequestFixtures };
+export { helpRequestFixtures };
