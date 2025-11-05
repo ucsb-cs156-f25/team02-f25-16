@@ -5,57 +5,63 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/articlesUtils";
+} from "main/utils/recommendationRequestUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function ArticlesTable({
-  articles,
+export default function RecommendationRequestTable({
+  recommendationRequests,
   currentUser,
-  testIdPrefix = "ArticlesTable",
+  testIdPrefix = "RecommendationRequestTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/articles/edit/${cell.row.original.id}`);
+    navigate(`/recommendationrequests/edit/${cell.row.original.id}`);
   };
 
-  // Stryker disable all : hard to test for query caching side effects
+  // Stryker disable all : hard to test for query caching
+
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/articles/all"],
+    ["/api/recommendationrequests/all"],
   );
   // Stryker restore all
 
+  // Stryker disable next-line all : TODO try to make a good test for this
   const deleteCallback = async (cell) => {
     deleteMutation.mutate(cell);
   };
 
   const columns = [
     {
-      header: "ID",
+      header: "id",
       accessorKey: "id",
     },
     {
-      header: "Title",
-      accessorKey: "title",
+      header: "Requester Email",
+      accessorKey: "requesterEmail",
     },
     {
-      header: "URL",
-      accessorKey: "url",
+      header: "Professor Email",
+      accessorKey: "professorEmail",
     },
     {
       header: "Explanation",
       accessorKey: "explanation",
     },
     {
-      header: "Submitter Email",
-      accessorKey: "submitterEmail",
+      header: "Date Requested",
+      accessorKey: "dateRequested",
     },
     {
-      header: "Date Added",
-      accessorKey: "dateAdded",
+      header: "Date Needed",
+      accessorKey: "dateNeeded",
+    },
+    {
+      header: "Done",
+      accessorKey: "done",
     },
   ];
 
@@ -66,5 +72,11 @@ export default function ArticlesTable({
     );
   }
 
-  return <OurTable data={articles} columns={columns} testid={testIdPrefix} />;
+  return (
+    <OurTable
+      data={recommendationRequests}
+      columns={columns}
+      testid={testIdPrefix}
+    />
+  );
 }

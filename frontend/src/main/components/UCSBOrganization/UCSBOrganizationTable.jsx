@@ -5,57 +5,51 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/articlesUtils";
+} from "main/utils/UCSBOrganizationUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function ArticlesTable({
-  articles,
+export default function UCSBOrganizationTable({
+  organizations,
   currentUser,
-  testIdPrefix = "ArticlesTable",
+  testIdPrefix = "UCSBOrganizationTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/articles/edit/${cell.row.original.id}`);
+    navigate(`/ucsborganization/edit/${cell.row.original.orgCode}`);
   };
 
-  // Stryker disable all : hard to test for query caching side effects
+  // Stryker disable all : hard to test for query caching
+
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/articles/all"],
+    ["/api/ucsborganizations/all"],
   );
   // Stryker restore all
 
+  // Stryker disable next-line all : TODO try to make a good test for this
   const deleteCallback = async (cell) => {
     deleteMutation.mutate(cell);
   };
 
   const columns = [
     {
-      header: "ID",
-      accessorKey: "id",
+      header: "Organization Code",
+      accessorKey: "orgCode", // accessor is the "key" in the data
     },
     {
-      header: "Title",
-      accessorKey: "title",
+      header: "Organization Translation Short",
+      accessorKey: "orgTranslationShort",
     },
     {
-      header: "URL",
-      accessorKey: "url",
+      header: "Organization Translation",
+      accessorKey: "orgTranslation",
     },
     {
-      header: "Explanation",
-      accessorKey: "explanation",
-    },
-    {
-      header: "Submitter Email",
-      accessorKey: "submitterEmail",
-    },
-    {
-      header: "Date Added",
-      accessorKey: "dateAdded",
+      header: "Inactive",
+      accessorKey: "inactive",
     },
   ];
 
@@ -66,5 +60,7 @@ export default function ArticlesTable({
     );
   }
 
-  return <OurTable data={articles} columns={columns} testid={testIdPrefix} />;
+  return (
+    <OurTable data={organizations} columns={columns} testid={testIdPrefix} />
+  );
 }
