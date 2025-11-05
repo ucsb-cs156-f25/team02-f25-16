@@ -30,8 +30,8 @@ const recommendationRequestFixtures = {
     {
       id: 3,
       requesterEmail: "saqif@ucsb.edu",
-      professorEmail: "vigna@ucsb.edu",
-      explanation: "PhD applications",
+      professorEmail: "sam@ucsb.edu",
+      explanation: "Job apps",
       dateRequested: "2025-10-28T13:45:00",
       dateNeeded: "2025-11-05T17:00:00",
       done: false,
