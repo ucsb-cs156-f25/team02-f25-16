@@ -63,12 +63,12 @@ describe("RecommendationRequestTable tests", () => {
       ).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`),
-    ).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-done`),
     ).toHaveTextContent("false");
@@ -105,12 +105,12 @@ describe("RecommendationRequestTable tests", () => {
       ).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("1");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`),
-    ).toHaveTextContent("2");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,

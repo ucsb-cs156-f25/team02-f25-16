@@ -7,7 +7,7 @@ function RecommendationRequestForm({
   submitAction,
   buttonLabel = "Create",
 }) {
-    // Stryker disable all
+  // Stryker disable all
   const {
     register,
     formState: { errors },
