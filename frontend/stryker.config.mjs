@@ -10,6 +10,9 @@ const config = {
     "src/main/**/*.js",
     "src/main/**/*.jsx"
   ],
+  logging: {
+    console: { level: "info", format: "text" }
+  },
   testRunner_comment:
     "Take a look at https://stryker-mutator.io/docs/stryker-js/vitest-runner for information about the vitest plugin.",
   coverageAnalysis: "perTest",

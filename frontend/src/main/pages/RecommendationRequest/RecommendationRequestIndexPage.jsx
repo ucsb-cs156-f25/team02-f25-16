@@ -7,21 +7,7 @@ import { useBackend } from "main/utils/useBackend";
 
 export default function RecommendationRequestIndexPage() {
   const currentUser = useCurrentUser();
-
-  const createButton = () => {
-    if (hasRole(currentUser, "ROLE_ADMIN")) {
-      return (
-        <Button
-          variant="primary"
-          href="/recommendationrequest/create"
-          style={{ float: "right" }}
-        >
-          Create RecommendationRequest
-        </Button>
-      );
-    }
-    return null;
-  };
+  const showCreateButton = hasRole(currentUser, "ROLE_ADMIN");
 
   const {
     data: recommendationRequests,
@@ -37,7 +23,16 @@ export default function RecommendationRequestIndexPage() {
   return (
     <BasicLayout>
       <div className="pt-2">
-        {createButton()}
+        {showCreateButton ? (
+          <Button
+            variant="primary"
+            href="/recommendationrequest/create"
+            style={{ float: "right" }}
+            data-testid="RecommendationRequestIndexPage-create-button"
+          >
+            Create RecommendationRequest
+          </Button>
+        ) : null}
         <h1>Recommendation Requests</h1>
         <RecommendationRequestTable
           recommendationRequests={recommendationRequests}

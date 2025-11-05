@@ -58,12 +58,9 @@ describe("RecommendationRequestIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() => {
-      expect(
-        screen.getByText("Create RecommendationRequest"),
-      ).toBeInTheDocument();
-    });
-    const button = screen.getByText("Create RecommendationRequest");
+    const button = await screen.findByTestId(
+      "RecommendationRequestIndexPage-create-button",
+    );
     expect(button).toHaveAttribute("href", "/recommendationrequest/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
@@ -95,7 +92,7 @@ describe("RecommendationRequestIndexPage tests", () => {
     );
 
     expect(
-      screen.queryByText("Create RecommendationRequest"),
+      screen.queryByTestId("RecommendationRequestIndexPage-create-button"),
     ).not.toBeInTheDocument();
 
     expect(screen.getByText("alice@ucsb.edu")).toBeInTheDocument();
