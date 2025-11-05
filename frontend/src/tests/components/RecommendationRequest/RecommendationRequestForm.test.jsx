@@ -14,15 +14,24 @@ vi.mock("react-router", async () => {
 });
 
 describe("RecommendationRequestForm tests", () => {
+  const testId = "RecommendationRequestForm";
+  const expectedHeaders = [
+    "Requester Email",
+    "Professor Email",
+    "Explanation",
+    "Date Requested (iso)",
+    "Date Needed (iso)",
+  ];
   test("renders correctly", async () => {
     render(
       <Router>
         <RecommendationRequestForm />
       </Router>,
     );
-    await screen.findByText(/Requester Email/);
-    await screen.findByText(/Create/);
-    expect(screen.getByText(/Requester Email/)).toBeInTheDocument();
+    expect(await screen.findByText(/Create/)).toBeInTheDocument();
+    expectedHeaders.forEach((headerText) => {
+      expect(screen.getByText(headerText)).toBeInTheDocument();
+    });
   });
 
   test("renders correctly when passing in a RecommendationRequest", async () => {
@@ -33,9 +42,40 @@ describe("RecommendationRequestForm tests", () => {
         />
       </Router>,
     );
-    await screen.findByTestId(/RecommendationRequestForm-id/);
+    await screen.findByTestId(`${testId}-id`);
     expect(screen.getByText(/Id/)).toBeInTheDocument();
-    expect(screen.getByTestId(/RecommendationRequestForm-id/)).toHaveValue("1");
+    expect(screen.getByTestId(`${testId}-id`)).toHaveValue("1");
+    // common fields present
+    expect(screen.getByTestId(`${testId}-requesterEmail`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-professorEmail`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-explanation`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-dateRequested`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-dateNeeded`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
+  });
+
+  test("Max length validations on text fields", async () => {
+    render(
+      <Router>
+        <RecommendationRequestForm />
+      </Router>,
+    );
+
+    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
+    const explanationField = screen.getByTestId(`${testId}-explanation`);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
+
+    const longText = "a".repeat(256);
+    fireEvent.change(requesterEmailField, { target: { value: longText } });
+    fireEvent.change(professorEmailField, { target: { value: longText } });
+    fireEvent.change(explanationField, { target: { value: longText } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const msgs = screen.getAllByText(/Max length 255 characters/);
+      expect(msgs.length).toBeGreaterThanOrEqual(3);
+    });
   });
 
   test("Correct Error messages on bad input (max length, bad dates)", async () => {
@@ -45,24 +85,12 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(
-      "RecommendationRequestForm-requesterEmail",
-    );
-    const professorEmailField = screen.getByTestId(
-      "RecommendationRequestForm-professorEmail",
-    );
-    const explanationField = screen.getByTestId(
-      "RecommendationRequestForm-explanation",
-    );
-    const dateRequestedField = screen.getByTestId(
-      "RecommendationRequestForm-dateRequested",
-    );
-    const dateNeededField = screen.getByTestId(
-      "RecommendationRequestForm-dateNeeded",
-    );
-    const submitButton = screen.getByTestId(
-      "RecommendationRequestForm-submit",
-    );
+    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
+    const explanationField = screen.getByTestId(`${testId}-explanation`);
+    const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
+    const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
 
     // long string to trigger maxLength
     const longText = "x".repeat(300);
@@ -86,9 +114,7 @@ describe("RecommendationRequestForm tests", () => {
         <RecommendationRequestForm />
       </Router>,
     );
-    const submitButton = await screen.findByTestId(
-      "RecommendationRequestForm-submit",
-    );
+    const submitButton = await screen.findByTestId(`${testId}-submit`);
 
     fireEvent.click(submitButton);
 
@@ -110,25 +136,13 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(
-      "RecommendationRequestForm-requesterEmail",
-    );
-    const professorEmailField = screen.getByTestId(
-      "RecommendationRequestForm-professorEmail",
-    );
-    const explanationField = screen.getByTestId(
-      "RecommendationRequestForm-explanation",
-    );
-    const dateRequestedField = screen.getByTestId(
-      "RecommendationRequestForm-dateRequested",
-    );
-    const dateNeededField = screen.getByTestId(
-      "RecommendationRequestForm-dateNeeded",
-    );
-    const doneSwitch = screen.getByTestId("RecommendationRequestForm-done");
-    const submitButton = screen.getByTestId(
-      "RecommendationRequestForm-submit",
-    );
+    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
+    const explanationField = screen.getByTestId(`${testId}-explanation`);
+    const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
+    const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
+    const doneSwitch = screen.getByTestId(`${testId}-done`);
+    const submitButton = screen.getByTestId(`${testId}-submit`);
 
     fireEvent.change(requesterEmailField, { target: { value: "alice@ucsb.edu" } });
     fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
@@ -158,9 +172,7 @@ describe("RecommendationRequestForm tests", () => {
         <RecommendationRequestForm />
       </Router>,
     );
-    const cancelButton = await screen.findByTestId(
-      "RecommendationRequestForm-cancel",
-    );
+    const cancelButton = await screen.findByTestId(`${testId}-cancel`);
 
     fireEvent.click(cancelButton);
 
