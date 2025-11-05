@@ -20,6 +20,7 @@ export default function RecommendationRequestIndexPage() {
         </Button>
       );
     }
+    return null;
   };
 
   const {
