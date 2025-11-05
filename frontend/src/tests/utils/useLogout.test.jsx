@@ -57,7 +57,7 @@ describe("useLogout tests", () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
     expect(axiosMock.history.post.length).toBe(1);
-    expect(resetQueriesSpy).toHaveBeenCalledWith({
+    expect(resetQueriesSpy).toHaveBeenNthCalledWith(1, {
       queryKey: ["current user"],
     });
     expect(navigateSpy).toHaveBeenCalledWith("/"); // Your assertion will now pass
