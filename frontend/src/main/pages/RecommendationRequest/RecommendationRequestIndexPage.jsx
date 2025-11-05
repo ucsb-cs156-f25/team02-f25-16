@@ -2,11 +2,26 @@ import React from "react";
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import RecommendationRequestTable from "main/components/RestaurantRecommendation/RecommendationRequestTable";
 import { Button } from "react-bootstrap";
-import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 import { useBackend } from "main/utils/useBackend";
+import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 
 export default function RecommendationRequestIndexPage() {
   const currentUser = useCurrentUser();
+
+  const {
+    data: recommendationRequests,
+    error: _error,
+    status: _status,
+  } = useBackend(
+    // Stryker disable next-line all : React Query cache key should remain stable
+    ["/api/recommendationrequests/all"],
+    {
+      // Stryker disable next-line all : GET is the default and mutating to "" doesn't change semantics
+      method: "GET",
+      url: "/api/recommendationrequests/all",
+    },
+    [],
+  );
 
   const renderCreateButton = () => {
     if (!hasRole(currentUser, "ROLE_ADMIN")) {
@@ -24,17 +39,6 @@ export default function RecommendationRequestIndexPage() {
     );
   };
 
-  const {
-    data: recommendationRequests,
-    error: _error,
-    status: _status,
-  } = useBackend(
-    // Stryker disable next-line all : React Query caching behaviour
-    ["/api/recommendationrequests/all"],
-    { method: "GET", url: "/api/recommendationrequests/all" },
-    [],
-  );
-
   return (
     <BasicLayout>
       <div className="pt-2">
@@ -48,3 +52,4 @@ export default function RecommendationRequestIndexPage() {
     </BasicLayout>
   );
 }
+
