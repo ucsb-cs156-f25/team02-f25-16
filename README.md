@@ -13,14 +13,14 @@ Deployments:
 
 TODO: Fill in this table with correct information. 
 
-| Table                     | Name         | Github Id |
-|---------------------------|--------------|-----------|
-| UCSBDiningCommonsMenuItem |              |           |
-| UCSBOrganization          |              |           |
-| RecommendationRequest     |              |           |
-| MenuItemReview            |              |           |
-| HelpRequest               |              |           |
-| Articles                  |              |           |
+| Table                     | Name         | Github Id  |
+|---------------------------|--------------|------------|
+| UCSBDiningCommonsMenuItem | Alex J.      | alexjh2    |
+| UCSBOrganization          | Quinn K.     | quinnkos   |
+| RecommendationRequest     | Saqif A.     | Saqif-Ayaan|
+| MenuItemReview            | William L.   | wpleee     |
+| HelpRequest               | Omar A.      | omar882    |
+| Articles                  | Mihir S.     | mihir-s-05 |
 
 Remember though, that in spite of these initial  assignments, it is still
 a team project.  Please help other team members to finish their work
