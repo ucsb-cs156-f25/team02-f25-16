@@ -28,11 +28,13 @@
     "@uiw/react-json-view": "^2.0.0-alpha.34",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
+    "project": "^0.1.6",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.62.0",
     "react-router": "^7.7.1",
+    "react-router-dom": "^6.30.1",
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
