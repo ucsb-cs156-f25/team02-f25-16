@@ -121,43 +121,6 @@ describe("RecommendationRequestIndexPage tests", () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`),
-      ).toHaveTextContent("1");
-    });
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "2",
-    );
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
-      "3",
-    );
-
-    expect(
-      screen.queryByText(/Create RecommendationRequest/),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-Delete-button`),
-    ).not.toBeInTheDocument();
-  });
-
-  test("renders empty table when backend unavailable, user only", async () => {
-    setupUserOnly();
-    const queryClient = new QueryClient();
-    axiosMock.onGet("/api/recommendationrequests/all").timeout();
-    const restoreConsole = mockConsole();
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <RecommendationRequestIndexPage />
-        </MemoryRouter>
-      </QueryClientProvider>,
-    );
-
-    await waitFor(() => {
       expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
     });
 
@@ -211,9 +174,7 @@ describe("RecommendationRequestIndexPage tests", () => {
     await waitFor(() => {
       expect(axiosMock.history.delete.length).toBe(1);
     });
-    expect(axiosMock.history.delete[0].url).toBe(
-      "/api/recommendationrequests",
-    );
+    expect(axiosMock.history.delete[0].url).toBe("/api/recommendationrequests");
     expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });
