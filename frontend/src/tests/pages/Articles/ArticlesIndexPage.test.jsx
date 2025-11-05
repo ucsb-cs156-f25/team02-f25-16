@@ -140,9 +140,7 @@ describe("ArticlesIndexPage tests", () => {
     axiosMock
       .onGet("/api/articles/all")
       .reply(200, articlesFixtures.threeArticles);
-    axiosMock
-      .onDelete("/api/articles")
-      .reply(200, "Article with id 1 was deleted");
+    axiosMock.onDelete("/api/articles").reply(200, "Article with id 1 deleted");
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -166,7 +164,7 @@ describe("ArticlesIndexPage tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => {
-      expect(mockToast).toBeCalledWith("Article with id 1 was deleted");
+      expect(mockToast).toBeCalledWith("Article with id 1 deleted");
     });
 
     await waitFor(() => {

@@ -63,7 +63,7 @@ ThreeItemsAdminUser.parameters = {
     }),
     http.delete("/api/articles", () => {
       return HttpResponse.json(
-        { message: "Article deleted successfully" },
+        { message: "Article with id 1 deleted" },
         { status: 200 },
       );
     }),
