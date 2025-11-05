@@ -16,3 +16,4 @@ export function cellToAxiosParamsDelete(cell) {
   };
 }
 // Stryker restore all
+
