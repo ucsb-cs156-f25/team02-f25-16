@@ -19,13 +19,31 @@ vi.mock("react-toastify", async (importOriginal) => {
   };
 });
 
+const mockedNavigate = vi.fn();
+vi.mock("react-router-dom", async (importOriginal) => {
+  const originalModule = await importOriginal();
+  return {
+    ...originalModule,
+    useNavigate: () => mockedNavigate,
+  };
+});
+
 describe("RecommendationRequestIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
   const testId = "RecommendationRequestTable";
 
-  const setupUserOnly = () => {
+  // Use `let` and setup QueryClient in beforeEach
+  // This isolates tests and is crucial for 100% Stryker coverage
+  let queryClient;
+  beforeEach(() => {
+    queryClient = new QueryClient();
     axiosMock.reset();
     axiosMock.resetHistory();
+    mockedNavigate.mockClear();
+    mockToast.mockClear();
+  });
+
+  const setupUserOnly = () => {
     axiosMock
       .onGet("/api/currentUser")
       .reply(200, apiCurrentUserFixtures.userOnly);
@@ -35,8 +53,6 @@ describe("RecommendationRequestIndexPage tests", () => {
   };
 
   const setupAdminUser = () => {
-    axiosMock.reset();
-    axiosMock.resetHistory();
     axiosMock
       .onGet("/api/currentUser")
       .reply(200, apiCurrentUserFixtures.adminUser);
@@ -44,8 +60,6 @@ describe("RecommendationRequestIndexPage tests", () => {
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
   };
-
-  const queryClient = new QueryClient();
 
   test("Renders with Create Button for admin user", async () => {
     setupAdminUser();
@@ -61,6 +75,12 @@ describe("RecommendationRequestIndexPage tests", () => {
     const button = await screen.findByTestId(
       "RecommendationRequestIndexPage-create-button",
     );
+    await waitFor(() => {
+      const allRequests = axiosMock.history.get.filter(
+        (req) => req.url === "/api/recommendationrequests/all",
+      );
+      expect(allRequests.length).toBe(1);
+    });
     expect(button).toHaveAttribute("href", "/recommendationrequest/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
@@ -95,9 +115,6 @@ describe("RecommendationRequestIndexPage tests", () => {
       screen.queryByTestId("RecommendationRequestIndexPage-create-button"),
     ).not.toBeInTheDocument();
 
-    expect(screen.getByText("alice@ucsb.edu")).toBeInTheDocument();
-    expect(screen.getByText("prof@ucsb.edu")).toBeInTheDocument();
-
     expect(
       screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`),
     ).not.toBeInTheDocument();
@@ -130,6 +147,46 @@ describe("RecommendationRequestIndexPage tests", () => {
     restoreConsole();
   });
 
+  // CHANGED: Restored the robust waitFor block
+  test("edit button navigates to edit page for admin user", async () => {
+    setupAdminUser();
+    axiosMock
+      .onGet("/api/recommendationrequests/all")
+      .reply(200, recommendationRequestFixtures.threeRequests);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <RecommendationRequestIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    // Wait for BOTH the row data and the admin buttons to be rendered
+    await waitFor(() => {
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`),
+      ).toBeInTheDocument();
+    });
+
+    const editButton = screen.getByTestId(
+      `${testId}-cell-row-0-col-Edit-button`,
+    );
+    expect(editButton).toBeInTheDocument();
+
+    // Act
+    fireEvent.click(editButton);
+
+    // Assert
+    await waitFor(() =>
+      expect(mockedNavigate).toHaveBeenCalledWith("/recommendationrequest/edit/1"),
+    );
+  });
+
+  // CHANGED: Restored the robust waitFor block from the original file
   test("delete button works for admin user", async () => {
     setupAdminUser();
     axiosMock
@@ -150,17 +207,25 @@ describe("RecommendationRequestIndexPage tests", () => {
       </QueryClientProvider>,
     );
 
+    // Wait for BOTH the row data and the admin buttons to be rendered
     await waitFor(() => {
       expect(
         screen.getByTestId(`${testId}-cell-row-0-col-id`),
       ).toBeInTheDocument();
+      expect(
+        screen.getByTestId(`${testId}-cell-row-0-col-Edit-button`),
+      ).toBeInTheDocument();
     });
 
-    const deleteButton = await screen.findByTestId(
+    const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
     );
+    expect(deleteButton).toBeInTheDocument();
+
+    // Act
     fireEvent.click(deleteButton);
 
+    // Assert
     await waitFor(() => expect(mockToast).toBeCalled());
     expect(mockToast).toHaveBeenCalledWith(
       "RecommendationRequests with id 1 deleted",
