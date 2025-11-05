@@ -19,7 +19,7 @@ const ucsbHelpRequestFixtures = {
     {
       requesterEmail: "bob@ucsb.edu",
       teamId: "f25-2",
-      tableOrBreakoutRoom: "Breakout Roo m 2",
+      tableOrBreakoutRoom: "Breakout Room 2",
       requestTime: "2025-11-04T10:45:00",
       explanation: "Issue with React state management",
       solved: true,
