@@ -42,7 +42,7 @@ jobs:
 
       - run: npm ci
         working-directory: ./frontend
-      - run: npm run coverage
+      - run: npm test
         working-directory: ./frontend
       - name: Upload coverage report to Artifacts
         if: always() # always upload artifacts, even if tests fail
