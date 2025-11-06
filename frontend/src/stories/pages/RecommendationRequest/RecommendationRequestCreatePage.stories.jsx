@@ -41,4 +41,3 @@ Default.parameters = {
     }),
   ],
 };
-

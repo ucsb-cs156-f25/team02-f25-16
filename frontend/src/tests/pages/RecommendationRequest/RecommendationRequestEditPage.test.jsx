@@ -176,9 +176,7 @@ describe("RecommendationRequestEditPage tests", () => {
       const dateNeededField = screen.getByTestId(
         "RecommendationRequestForm-dateNeeded",
       );
-      const doneSwitch = screen.getByTestId(
-        "RecommendationRequestForm-done",
-      );
+      const doneSwitch = screen.getByTestId("RecommendationRequestForm-done");
       const submitButton = screen.getByTestId(
         "RecommendationRequestForm-submit",
       );

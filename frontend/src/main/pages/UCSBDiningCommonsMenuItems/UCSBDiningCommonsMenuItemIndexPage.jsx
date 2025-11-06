@@ -10,12 +10,14 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
-    data: menuItems,
+    data: menuitems,
     error: _error,
     status: _status,
   } = useBackend(
+    // Stryker disable next-line all : don't test internal caching of React Query
     ["/api/ucsbdiningcommonsmenuitems/all"],
     { method: "GET", url: "/api/ucsbdiningcommonsmenuitems/all" },
+    // Stryker disable next-line all : don't test default value of empty list
     [],
   );
 
@@ -24,7 +26,7 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
       return (
         <Button
           variant="primary"
-          href="/ucsbdiningcommonsmenuitems/create"
+          href="/UCSBDiningCommonsMenuItems/create"
           style={{ float: "right" }}
         >
           Create UCSBDiningCommonsMenuItem
@@ -39,7 +41,7 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
         {createButton()}
         <h1>UCSBDiningCommonsMenuItems</h1>
         <UCSBDiningCommonsMenuItemTable
-          ucsbdiningCommonsMenuItems={menuItems}
+          UCSBDiningCommonsMenuItems={menuitems}
           currentUser={currentUser}
         />
       </div>

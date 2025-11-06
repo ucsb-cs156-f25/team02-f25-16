@@ -46,9 +46,7 @@ describe("HelpRequestsEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock
-        .onGet("/api/helprequests", { params: { id: 17 } })
-        .timeout();
+      axiosMock.onGet("/api/helprequests", { params: { id: 17 } }).timeout();
     });
 
     afterEach(() => {
@@ -88,17 +86,15 @@ describe("HelpRequestsEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock
-        .onGet("/api/helprequests", { params: { id: 17 } })
-        .reply(200, {
-          id: 17,
-          requesterEmail: "alice@ucsb.edu",
-          teamId: "f25-1",
-          tableOrBreakoutRoom: "Table 3",
-          requestTime: "2025-11-04T10:00:00",
-          explanation: "Dokku deployment not working",
-          solved: false,
-        });
+      axiosMock.onGet("/api/helprequests", { params: { id: 17 } }).reply(200, {
+        id: 17,
+        requesterEmail: "alice@ucsb.edu",
+        teamId: "f25-1",
+        tableOrBreakoutRoom: "Table 3",
+        requestTime: "2025-11-04T10:00:00",
+        explanation: "Dokku deployment not working",
+        solved: false,
+      });
       axiosMock.onPut("/api/helprequests").reply(200, {
         id: 17,
         requesterEmail: "alice@ucsb.edu",
@@ -153,7 +149,7 @@ describe("HelpRequestsEditPage tests", () => {
       expect(requesterEmailField).toHaveValue("alice@ucsb.edu");
       expect(teamIdField).toHaveValue("f25-1");
       expect(tableField).toHaveValue("Table 3");
-  expect(requestTimeField).toHaveValue("2025-11-04T10:00");
+      expect(requestTimeField).toHaveValue("2025-11-04T10:00");
       expect(explanationField).toHaveValue("Dokku deployment not working");
       expect(solvedField).not.toBeChecked();
 

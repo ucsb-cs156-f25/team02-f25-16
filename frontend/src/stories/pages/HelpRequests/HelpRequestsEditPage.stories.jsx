@@ -23,12 +23,13 @@ Default.parameters = {
       HttpResponse.json(systemInfoFixtures.showingNeither, { status: 200 }),
     ),
     http.get("/api/helprequests", () =>
-      HttpResponse.json({ id: 2, ...helpRequestFixtures.oneHelpRequest }, {
-        status: 200,
-      }),
+      HttpResponse.json(
+        { id: 2, ...helpRequestFixtures.oneHelpRequest },
+        {
+          status: 200,
+        },
+      ),
     ),
-    http.put("/api/helprequests", () =>
-      HttpResponse.json({}, { status: 200 }),
-    ),
+    http.put("/api/helprequests", () => HttpResponse.json({}, { status: 200 })),
   ],
 };

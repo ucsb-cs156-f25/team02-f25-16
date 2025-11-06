@@ -70,13 +70,11 @@ describe("HelpRequestsIndexPage tests", () => {
 
   test("renders three help requests correctly for regular user", async () => {
     setupUserOnly();
-    axiosMock
-      .onGet("/api/helprequests/all")
-      .reply(200, [
-        { id: 2, ...helpRequestFixtures.threeHelpRequests[0] },
-        { id: 3, ...helpRequestFixtures.threeHelpRequests[1] },
-        { id: 4, ...helpRequestFixtures.threeHelpRequests[2] },
-      ]);
+    axiosMock.onGet("/api/helprequests/all").reply(200, [
+      { id: 2, ...helpRequestFixtures.threeHelpRequests[0] },
+      { id: 3, ...helpRequestFixtures.threeHelpRequests[1] },
+      { id: 4, ...helpRequestFixtures.threeHelpRequests[2] },
+    ]);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -98,8 +96,8 @@ describe("HelpRequestsIndexPage tests", () => {
       "4",
     );
 
-  const createButton = screen.queryByText("Create Help Request");
-  expect(createButton).not.toBeInTheDocument();
+    const createButton = screen.queryByText("Create Help Request");
+    expect(createButton).not.toBeInTheDocument();
 
     // spot check a couple of fields from the first row
     expect(
@@ -144,13 +142,11 @@ describe("HelpRequestsIndexPage tests", () => {
   test("what happens when you click delete, admin", async () => {
     setupAdminUser();
 
-    axiosMock
-      .onGet("/api/helprequests/all")
-      .reply(200, [
-        { id: 2, ...helpRequestFixtures.threeHelpRequests[0] },
-        { id: 3, ...helpRequestFixtures.threeHelpRequests[1] },
-        { id: 4, ...helpRequestFixtures.threeHelpRequests[2] },
-      ]);
+    axiosMock.onGet("/api/helprequests/all").reply(200, [
+      { id: 2, ...helpRequestFixtures.threeHelpRequests[0] },
+      { id: 3, ...helpRequestFixtures.threeHelpRequests[1] },
+      { id: 4, ...helpRequestFixtures.threeHelpRequests[2] },
+    ]);
     axiosMock
       .onDelete("/api/helprequests")
       .reply(200, "HelpRequest with id 2 was deleted");

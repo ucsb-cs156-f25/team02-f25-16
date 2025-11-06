@@ -46,7 +46,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganizations", { params: { orgCode: "GSAC" } }).timeout();
+      axiosMock
+        .onGet("/api/ucsborganizations", { params: { orgCode: "GSAC" } })
+        .timeout();
     });
 
     afterEach(() => {
@@ -68,7 +70,9 @@ describe("UCSBOrganizationEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit UCSBOrganization");
-      expect(screen.queryByTestId("UCSBOrganizationForm-orgCode")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("UCSBOrganizationForm-orgCode"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -84,12 +88,14 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganizations", { params: { orgCode: "GSAC" } }).reply(200, {
-        orgCode: "GSAC",
-        orgTranslationShort: "Gaucho Sports Analytics",
-        orgTranslation: "Gaucho Sports Analytics Club",
-        inactive: false,
-      });
+      axiosMock
+        .onGet("/api/ucsborganizations", { params: { orgCode: "GSAC" } })
+        .reply(200, {
+          orgCode: "GSAC",
+          orgTranslationShort: "Gaucho Sports Analytics",
+          orgTranslation: "Gaucho Sports Analytics Club",
+          inactive: false,
+        });
       axiosMock.onPut("/api/ucsborganizations").reply(200, {
         orgCode: "GSAC",
         orgTranslationShort: "Gaucho Sports Analytics Club",
@@ -119,9 +125,15 @@ describe("UCSBOrganizationEditPage tests", () => {
       await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-      const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
-      const inactiveCheckbox = screen.getByTestId("UCSBOrganizationForm-inactive");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
+      );
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
+      const inactiveCheckbox = screen.getByTestId(
+        "UCSBOrganizationForm-inactive",
+      );
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
       expect(orgCodeField).toBeInTheDocument();
@@ -173,8 +185,12 @@ describe("UCSBOrganizationEditPage tests", () => {
       await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-      const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
+      );
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
       expect(orgCodeField).toHaveValue("GSAC");
@@ -185,7 +201,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       fireEvent.change(orgTranslationShortField, {
         target: { value: "Gaucho Sports Analytics Club" },
       });
-      fireEvent.change(orgTranslationField, { target: { value: "UCSB Gaucho Sports Analytics Club" } });
+      fireEvent.change(orgTranslationField, {
+        target: { value: "UCSB Gaucho Sports Analytics Club" },
+      });
 
       fireEvent.click(submitButton);
 
