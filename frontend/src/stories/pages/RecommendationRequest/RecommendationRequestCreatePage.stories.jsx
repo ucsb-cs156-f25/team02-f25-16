@@ -34,7 +34,6 @@ Default.parameters = {
           explanation: "Storybook",
           dateRequested: "2025-01-01T09:00",
           dateNeeded: "2025-02-01T17:00",
-          done: false,
         },
         { status: 200 },
       );

@@ -153,7 +153,6 @@ describe("RecommendationRequestForm tests", () => {
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
     const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
-    const doneSwitch = screen.getByTestId(`${testId}-done`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
 
     fireEvent.change(requesterEmailField, {
@@ -169,7 +168,6 @@ describe("RecommendationRequestForm tests", () => {
     fireEvent.change(dateNeededField, {
       target: { value: "2025-02-01T17:00" },
     });
-    fireEvent.click(doneSwitch);
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());

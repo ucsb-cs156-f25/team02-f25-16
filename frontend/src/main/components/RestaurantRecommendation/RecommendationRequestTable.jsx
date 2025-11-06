@@ -59,10 +59,6 @@ export default function RecommendationRequestTable({
       header: "Date Needed",
       accessorKey: "dateNeeded",
     },
-    {
-      header: "Done",
-      accessorKey: "done",
-    },
   ];
 
   if (hasRole(currentUser, "ROLE_ADMIN")) {
