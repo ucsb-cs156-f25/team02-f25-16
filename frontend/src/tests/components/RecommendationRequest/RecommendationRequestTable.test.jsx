@@ -27,7 +27,6 @@ describe("RecommendationRequestTable tests", () => {
     "Explanation",
     "Date Requested",
     "Date Needed",
-    "Done",
   ];
   const expectedFields = [
     "id",
@@ -36,7 +35,6 @@ describe("RecommendationRequestTable tests", () => {
     "explanation",
     "dateRequested",
     "dateNeeded",
-    "done",
   ];
 
   test("Has the expected column headers and content for ordinary user", () => {
@@ -69,10 +67,6 @@ describe("RecommendationRequestTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "2",
     );
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-done`),
-    ).toHaveTextContent("false");
-
     expect(
       screen.queryByTestId(`${testId}-cell-row-0-col-Edit-button`),
     ).not.toBeInTheDocument();

@@ -32,7 +32,6 @@ export default function RecommendationRequestEditPage({ storybook = false }) {
       explanation: rr.explanation,
       dateRequested: rr.dateRequested,
       dateNeeded: rr.dateNeeded,
-      done: rr.done,
     },
   });
 

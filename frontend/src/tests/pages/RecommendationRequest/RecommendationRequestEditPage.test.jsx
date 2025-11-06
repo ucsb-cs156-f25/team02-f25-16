@@ -96,7 +96,6 @@ describe("RecommendationRequestEditPage tests", () => {
           explanation: "Grad apps",
           dateRequested: "2025-01-01T09:00",
           dateNeeded: "2025-02-01T17:00",
-          done: false,
         });
       axiosMock.onPut("/api/recommendationrequests").reply(200, {
         id: 17,
@@ -105,7 +104,6 @@ describe("RecommendationRequestEditPage tests", () => {
         explanation: "Graduate applications",
         dateRequested: "2025-01-05T10:00",
         dateNeeded: "2025-02-10T17:00",
-        done: true,
       });
     });
 
@@ -147,9 +145,6 @@ describe("RecommendationRequestEditPage tests", () => {
       expect(
         screen.getByTestId("RecommendationRequestForm-dateNeeded"),
       ).toHaveValue("2025-02-01T17:00");
-      expect(
-        screen.getByTestId("RecommendationRequestForm-done"),
-      ).not.toBeChecked();
     });
 
     test("Changes when you click Update", async () => {
@@ -176,7 +171,6 @@ describe("RecommendationRequestEditPage tests", () => {
       const dateNeededField = screen.getByTestId(
         "RecommendationRequestForm-dateNeeded",
       );
-      const doneSwitch = screen.getByTestId("RecommendationRequestForm-done");
       const submitButton = screen.getByTestId(
         "RecommendationRequestForm-submit",
       );
@@ -196,7 +190,6 @@ describe("RecommendationRequestEditPage tests", () => {
       fireEvent.change(dateNeededField, {
         target: { value: "2025-02-10T17:00" },
       });
-      fireEvent.click(doneSwitch);
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
@@ -214,7 +207,6 @@ describe("RecommendationRequestEditPage tests", () => {
           explanation: "Graduate applications",
           dateRequested: "2025-01-05T10:00",
           dateNeeded: "2025-02-10T17:00",
-          done: true,
         }),
       );
     });

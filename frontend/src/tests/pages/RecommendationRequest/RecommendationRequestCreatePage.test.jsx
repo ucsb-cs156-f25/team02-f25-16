@@ -74,7 +74,6 @@ describe("RecommendationRequestCreatePage tests", () => {
       explanation: "Grad apps",
       dateRequested: "2025-01-01T09:00",
       dateNeeded: "2025-02-01T17:00",
-      done: true,
     };
 
     axiosMock
@@ -94,7 +93,6 @@ describe("RecommendationRequestCreatePage tests", () => {
     const explanationInput = screen.getByLabelText("Explanation");
     const dateRequestedInput = screen.getByLabelText("Date Requested (iso)");
     const dateNeededInput = screen.getByLabelText("Date Needed (iso)");
-    const doneSwitch = screen.getByLabelText("Done");
     const submitButton = screen.getByText("Create");
 
     fireEvent.change(requesterEmailInput, {
@@ -110,7 +108,6 @@ describe("RecommendationRequestCreatePage tests", () => {
     fireEvent.change(dateNeededInput, {
       target: { value: "2025-02-01T17:00" },
     });
-    fireEvent.click(doneSwitch);
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
@@ -120,7 +117,6 @@ describe("RecommendationRequestCreatePage tests", () => {
       explanation: "Grad apps",
       dateRequested: "2025-01-01T09:00",
       dateNeeded: "2025-02-01T17:00",
-      done: true,
     });
 
     expect(mockToast).toHaveBeenCalledWith(
