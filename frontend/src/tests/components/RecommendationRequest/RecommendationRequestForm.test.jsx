@@ -61,7 +61,9 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const requesterEmailField = await screen.findByTestId(
+      `${testId}-requesterEmail`,
+    );
     const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
@@ -85,7 +87,9 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const requesterEmailField = await screen.findByTestId(
+      `${testId}-requesterEmail`,
+    );
     const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
@@ -94,15 +98,21 @@ describe("RecommendationRequestForm tests", () => {
 
     // long string to trigger maxLength
     const longText = "x".repeat(300);
-    fireEvent.change(requesterEmailField, { target: { value: "user@ucsb.edu" } });
-    fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
+    fireEvent.change(requesterEmailField, {
+      target: { value: "user@ucsb.edu" },
+    });
+    fireEvent.change(professorEmailField, {
+      target: { value: "prof@ucsb.edu" },
+    });
     fireEvent.change(explanationField, { target: { value: longText } });
     fireEvent.change(dateRequestedField, { target: { value: "bad-input" } });
     fireEvent.change(dateNeededField, { target: { value: "bad-input" } });
     fireEvent.click(submitButton);
 
     await screen.findByText(/Max length 255 characters/);
-    expect(screen.getAllByText(/Max length 255 characters/).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/Max length 255 characters/).length,
+    ).toBeGreaterThan(0);
     // date fields use a generic required message for any invalid state
     expect(screen.getByText(/DateRequested is required\./)).toBeInTheDocument();
     expect(screen.getByText(/DateNeeded is required\./)).toBeInTheDocument();
@@ -136,7 +146,9 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const requesterEmailField = await screen.findByTestId(
+      `${testId}-requesterEmail`,
+    );
     const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
@@ -144,8 +156,12 @@ describe("RecommendationRequestForm tests", () => {
     const doneSwitch = screen.getByTestId(`${testId}-done`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
 
-    fireEvent.change(requesterEmailField, { target: { value: "alice@ucsb.edu" } });
-    fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
+    fireEvent.change(requesterEmailField, {
+      target: { value: "alice@ucsb.edu" },
+    });
+    fireEvent.change(professorEmailField, {
+      target: { value: "prof@ucsb.edu" },
+    });
     fireEvent.change(explanationField, { target: { value: "Grad apps" } });
     fireEvent.change(dateRequestedField, {
       target: { value: "2025-01-01T09:00" },
@@ -161,9 +177,7 @@ describe("RecommendationRequestForm tests", () => {
     expect(
       screen.queryByText(/Max length 255 characters/),
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/is required\./),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/is required\./)).not.toBeInTheDocument();
   });
 
   test("Accepts ISO with seconds (alt 2)", async () => {
@@ -175,18 +189,28 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = await screen.findByTestId(`${testId}-requesterEmail`);
+    const requesterEmailField = await screen.findByTestId(
+      `${testId}-requesterEmail`,
+    );
     const professorEmailField = screen.getByTestId(`${testId}-professorEmail`);
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
     const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
 
-    fireEvent.change(requesterEmailField, { target: { value: "alice@ucsb.edu" } });
-    fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
+    fireEvent.change(requesterEmailField, {
+      target: { value: "alice@ucsb.edu" },
+    });
+    fireEvent.change(professorEmailField, {
+      target: { value: "prof@ucsb.edu" },
+    });
     fireEvent.change(explanationField, { target: { value: "Grad apps" } });
-    fireEvent.change(dateRequestedField, { target: { value: "2025-01-01T09:00:00" } });
-    fireEvent.change(dateNeededField, { target: { value: "2025-02-01T17:00:00" } });
+    fireEvent.change(dateRequestedField, {
+      target: { value: "2025-01-01T09:00:00" },
+    });
+    fireEvent.change(dateNeededField, {
+      target: { value: "2025-02-01T17:00:00" },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());

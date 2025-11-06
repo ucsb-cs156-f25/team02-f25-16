@@ -5,19 +5,19 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/UCSBDiningCommonsMenuItemUtils";
+} from "main/utils/helpRequestUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function UCSBDiningCommonsMenuItemTable({
-  UCSBDiningCommonsMenuItems,
+export default function HelpRequestTable({
+  helpRequests,
   currentUser,
-  testIdPrefix = "UCSBDiningCommonsMenuItemTable",
+  testIdPrefix = "HelpRequestTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/UCSBDiningCommonsMenuItems/edit/${cell.row.original.id}`);
+    navigate(`/helprequests/edit/${cell.row.original.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -25,7 +25,7 @@ export default function UCSBDiningCommonsMenuItemTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/UCSBDiningCommonsMenuItems/all"],
+    ["/api/helprequests/all"],
   );
   // Stryker restore all
 
@@ -41,16 +41,28 @@ export default function UCSBDiningCommonsMenuItemTable({
     },
 
     {
-      header: "DiningCommonsCode",
-      accessorKey: "diningCommonsCode",
+      header: "Requester Email",
+      accessorKey: "requesterEmail",
     },
     {
-      header: "Name",
-      accessorKey: "name",
+      header: "Team ID",
+      accessorKey: "teamId",
     },
     {
-      header: "Station",
-      accessorKey: "station",
+      header: "Table or Breakout Room",
+      accessorKey: "tableOrBreakoutRoom",
+    },
+    {
+      header: "Request Time",
+      accessorKey: "requestTime",
+    },
+    {
+      header: "Explanation",
+      accessorKey: "explanation",
+    },
+    {
+      header: "Solved",
+      accessorKey: "solved",
     },
   ];
 
@@ -62,10 +74,6 @@ export default function UCSBDiningCommonsMenuItemTable({
   }
 
   return (
-    <OurTable
-      data={UCSBDiningCommonsMenuItems}
-      columns={columns}
-      testid={testIdPrefix}
-    />
+    <OurTable data={helpRequests} columns={columns} testid={testIdPrefix} />
   );
 }
