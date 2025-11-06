@@ -88,11 +88,25 @@ describe("MenuItemReviewForm tests", () => {
     fireEvent.change(reviewerEmailField, { target: { value: "bad-input" } });
     fireEvent.change(starsField, { target: { value: "bad-input" } });
     fireEvent.change(dateReviewedField, { target: { value: "bad-input" } });
-    fireEvent.change(commentsField, { target: { value: "bad-input" } });
+    fireEvent.change(commentsField, {
+      target: { value: "a".repeat(300) },
+    });
     fireEvent.click(submitButton);
 
-    await screen.findByText(/Date Reviewed is required/);
+    await screen.findByText(/Item Id must be a positive integer/);
+    expect(
+      screen.getByText(/Item Id must be a positive integer/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Reviewer Email must be a valid email address/),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Stars must be an integer between 1 and 5/),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Date Reviewed is required/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Comments must be 255 characters or fewer/),
+    ).toBeInTheDocument();
   });
 
   test("Correct Error messsages on missing input", async () => {
@@ -149,7 +163,19 @@ describe("MenuItemReviewForm tests", () => {
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(
-      screen.queryByText(/dateReviewed must be in ISO format/),
+      screen.queryByText(/Date Reviewed must be in ISO format/),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Item Id must be a positive integer/),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Reviewer Email must be a valid email address/),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Stars must be an integer between 1 and 5/),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Comments must be 255 characters or fewer/),
     ).not.toBeInTheDocument();
   });
 
