@@ -28,12 +28,16 @@ describe("UCSBOrganizationForm tests", () => {
   test("renders correctly when passing in a UCSBOrganization", async () => {
     render(
       <Router>
-        <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization[0]} />
+        <UCSBOrganizationForm
+          initialContents={ucsbOrganizationFixtures.oneOrganization[0]}
+        />
       </Router>,
     );
     await screen.findByTestId(/UCSBOrganizationForm-orgCode/);
     expect(screen.getByText(/Organization Code/)).toBeInTheDocument();
-    expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue("GSAC");
+    expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue(
+      "GSAC",
+    );
   });
 
   test("Correct Error messsages on missing input", async () => {
@@ -48,8 +52,12 @@ describe("UCSBOrganizationForm tests", () => {
     fireEvent.click(submitButton);
 
     await screen.findByText(/Organization Code is required./);
-    expect(screen.getByText(/Organization Translation Short is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Organization Translation is required./)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Organization Translation Short is required./),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/Organization Translation is required./),
+    ).toBeInTheDocument();
   });
 
   test("No Error messsages on good input", async () => {
@@ -63,13 +71,21 @@ describe("UCSBOrganizationForm tests", () => {
     await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-    const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-    const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
-    const inactiveCheckbox = screen.getByTestId("UCSBOrganizationForm-inactive");
+    const orgTranslationShortField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslationShort",
+    );
+    const orgTranslationField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslation",
+    );
+    const inactiveCheckbox = screen.getByTestId(
+      "UCSBOrganizationForm-inactive",
+    );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
     fireEvent.change(orgCodeField, { target: { value: "GSAC" } });
-    fireEvent.change(orgTranslationShortField, { target: { value: "Gaucho Sports Analytics" } });
+    fireEvent.change(orgTranslationShortField, {
+      target: { value: "Gaucho Sports Analytics" },
+    });
     fireEvent.change(orgTranslationField, {
       target: { value: "Gaucho Sports Analytics Club" },
     });

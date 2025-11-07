@@ -20,6 +20,8 @@ function MenuItemReview({
   // Stryker disable Regex
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  const positive_integer_regex = /^[1-9]\d*$/;
+  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Stryker restore Regex
 
   return (
@@ -49,11 +51,14 @@ function MenuItemReview({
               type="text"
               isInvalid={Boolean(errors.itemId)}
               {...register("itemId", {
-                required: "Item Id is required.",
+                required: true,
+                pattern: positive_integer_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.itemId?.message}
+              {errors.itemId && "Item Id is required. "}
+              {errors.itemId?.type === "pattern" &&
+                "Item Id must be a positive integer."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -66,11 +71,14 @@ function MenuItemReview({
               type="text"
               isInvalid={Boolean(errors.reviewerEmail)}
               {...register("reviewerEmail", {
-                required: "Reviewer Email is required.",
+                required: true,
+                pattern: email_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.reviewerEmail?.message}
+              {errors.reviewerEmail && "Reviewer Email is required. "}
+              {errors.reviewerEmail?.type === "pattern" &&
+                "Reviewer Email must be a valid email address."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -83,11 +91,14 @@ function MenuItemReview({
               type="text"
               isInvalid={Boolean(errors.stars)}
               {...register("stars", {
-                required: "Stars is required.",
+                required: true,
+                pattern: positive_integer_regex,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.stars?.message}
+              {errors.stars && "Stars is required. "}
+              {errors.stars?.type === "pattern" &&
+                "Stars must be an integer between 1 and 5."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -118,11 +129,14 @@ function MenuItemReview({
               type="text"
               isInvalid={Boolean(errors.comments)}
               {...register("comments", {
-                required: "Comments is required.",
+                required: true,
+                maxLength: 255,
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.comments?.message}
+              {errors.comments && "Comments is required. "}
+              {errors.comments?.type === "maxLength" &&
+                "Comments must be 255 characters or fewer."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
