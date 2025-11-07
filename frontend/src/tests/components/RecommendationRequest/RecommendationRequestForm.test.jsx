@@ -97,7 +97,6 @@ describe("RecommendationRequestForm tests", () => {
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
     const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
-    const doneSwitch = screen.getByTestId(`${testId}-done`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
 
     // long string to trigger maxLength
