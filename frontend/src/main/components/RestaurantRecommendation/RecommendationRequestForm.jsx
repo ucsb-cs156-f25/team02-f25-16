@@ -124,6 +124,16 @@ function RecommendationRequestForm({
         </Form.Control.Feedback>
       </Form.Group>
 
+      <Form.Group className="mb-3">
+        <Form.Check
+          type="switch"
+          id="done"
+          label="Done"
+          data-testid={testIdPrefix + "-done"}
+          {...register("done")}
+        />
+      </Form.Group>
+
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
       </Button>

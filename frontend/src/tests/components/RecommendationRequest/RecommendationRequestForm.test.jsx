@@ -21,6 +21,7 @@ describe("RecommendationRequestForm tests", () => {
     "Explanation",
     "Date Requested (iso)",
     "Date Needed (iso)",
+    "Done",
   ];
   test("renders correctly", async () => {
     render(
@@ -51,7 +52,9 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByTestId(`${testId}-explanation`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-dateRequested`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-dateNeeded`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-done`)).toBeInTheDocument();
     expect(screen.getByTestId(`${testId}-submit`)).toBeInTheDocument();
+    expect(screen.getByTestId(`${testId}-done`)).not.toBeChecked();
   });
 
   test("Max length validations on text fields", async () => {
@@ -94,6 +97,7 @@ describe("RecommendationRequestForm tests", () => {
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
     const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
+    const doneSwitch = screen.getByTestId(`${testId}-done`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
 
     // long string to trigger maxLength
@@ -153,6 +157,7 @@ describe("RecommendationRequestForm tests", () => {
     const explanationField = screen.getByTestId(`${testId}-explanation`);
     const dateRequestedField = screen.getByTestId(`${testId}-dateRequested`);
     const dateNeededField = screen.getByTestId(`${testId}-dateNeeded`);
+    const doneSwitch = screen.getByTestId(`${testId}-done`);
     const submitButton = screen.getByTestId(`${testId}-submit`);
 
     fireEvent.change(requesterEmailField, {
@@ -168,6 +173,7 @@ describe("RecommendationRequestForm tests", () => {
     fireEvent.change(dateNeededField, {
       target: { value: "2025-02-01T17:00" },
     });
+    fireEvent.click(doneSwitch);
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
