@@ -58,7 +58,9 @@ function UCSBOrganizationForm({
 
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="orgTranslationShort">Organization Translation Short</Form.Label>
+            <Form.Label htmlFor="orgTranslationShort">
+              Organization Translation Short
+            </Form.Label>
             <Form.Control
               data-testid="UCSBOrganizationForm-orgTranslationShort"
               id="orgTranslationShort"
@@ -78,7 +80,9 @@ function UCSBOrganizationForm({
       <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="orgTranslation">Organization Translation</Form.Label>
+            <Form.Label htmlFor="orgTranslation">
+              Organization Translation
+            </Form.Label>
             <Form.Control
               data-testid="UCSBOrganizationForm-orgTranslation"
               id="orgTranslation"
