@@ -1,7 +1,13 @@
 package edu.ucsb.cs156.example.entities;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -14,12 +20,7 @@ public class UCSBDiningCommonsMenuItem {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "DINING_COMMONS_CODE")
   private String diningCommonsCode;
-
-  @Column(name = "NAME")
   private String name;
-
-  @Column(name = "STATION")
   private String station;
 }
